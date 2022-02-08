@@ -1,0 +1,17 @@
+<players root="gfx/characters/costumes/"
+         portraitroot="gfx/ui/boss/"
+         nameimageroot="gfx/ui/boss/"
+         bigportraitroot="gfx/ui/stage/">
+	<player
+    name="Mehden"
+    skin="Character_009_Eden.png"
+    hp="2"
+    nameimage="PlayerName_Mehden.png"
+    portrait="PlayerPortrait_Mehden.png"
+    bigportrait="PlayerPortraitBig_Mehden.png"
+    skinColor="-1"
+		birthright="#EDEN_BIRTHRIGHT">
+      <hair gfx="Character_012b_lostcobwebs.png.png"/>
+  </player>
+
+</players>
