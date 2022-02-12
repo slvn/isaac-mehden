@@ -15,9 +15,9 @@ const MEHDEN_STARTING_ITEMS: CollectibleType[] = [];
 const MEHDEN_ACTIVE_STARTING_ITEMS: CollectibleType[] = [];
 
 const MEHDEN_DAMAGE = -1;
-const MEHDEN_FIREDELAY = +4;
+const MEHDEN_FIREDELAY = +6;
 const MEHDEN_SHOT_SPEED = -0.25;
-const MEHDEN_RANGE = -1.5;
+const MEHDEN_RANGE = -60;
 const MEHDEN_SPEED = -0.15;
 const MEHDEN_LUCK = -1;
 
@@ -49,6 +49,8 @@ function postGameStarted() {
       activeItem,
       getCollectibleInitCharges(activeItem),
     );
+
+    Isaac.DebugString(`Mehden starts ${activeItem} and ${passiveItem}`);
   }
 }
 
@@ -83,7 +85,8 @@ function initMehdenStartingItems() {
     if (
       !isQuestCollectible(collectibleType) &&
       getCollectibleQuality(collectibleType) <= MEHDEN_MAXIMUM_QUALITY &&
-      !collectibleHasTag(collectibleType, ItemConfigTag.NO_EDEN)
+      !collectibleHasTag(collectibleType, ItemConfigTag.NO_EDEN) &&
+      collectibleNotHidden(collectibleType)
     ) {
       if (isPassiveCollectible(collectibleType)) {
         MEHDEN_STARTING_ITEMS.push(collectibleType);
@@ -96,4 +99,7 @@ function initMehdenStartingItems() {
 
 function getMehdenStartingItem(pool: CollectibleType[], seed: int) {
   return getRandomArrayElement(pool, seed);
+}
+function collectibleNotHidden(collectibleType: number) {
+  return collectibleType !== 59;
 }
