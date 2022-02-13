@@ -22,6 +22,7 @@ const MEHDEN_STARTING_ITEMS: CollectibleType[] = [
   CollectibleType.COLLECTIBLE_BBF,
   CollectibleType.COLLECTIBLE_BOBS_BRAIN,
   CollectibleType.COLLECTIBLE_ISAACS_HEART,
+  CollectibleType.COLLECTIBLE_TAURUS,
   CollectibleType.COLLECTIBLE_CURSED_EYE,
   CollectibleType.COLLECTIBLE_LUDOVICO_TECHNIQUE,
   CollectibleType.COLLECTIBLE_SOY_MILK,
@@ -58,7 +59,6 @@ const MEHDEN_STARTING_ITEMS: CollectibleType[] = [
   CollectibleType.COLLECTIBLE_CRACKED_ORB,
   CollectibleType.COLLECTIBLE_EMPTY_HEART,
   CollectibleType.COLLECTIBLE_LIL_PORTAL,
-  CollectibleType.COLLECTIBLE_JELLY_BELLY,
   CollectibleType.COLLECTIBLE_VANISHING_TWIN,
   CollectibleType.COLLECTIBLE_IBS,
 ];
