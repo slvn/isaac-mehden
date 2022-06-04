@@ -1,104 +1,105 @@
 import {
-  getCollectibleInitCharges,
+  CacheFlag,
+  CollectibleType,
+  ModCallback,
+} from "isaac-typescript-definitions";
+import {
+  getCollectibleInitCharge,
   getRandomArrayElement,
 } from "isaacscript-common";
 
 const MOD_NAME = "isaac-mehden";
 
 const MEHDEN_STARTING_ITEMS: CollectibleType[] = [
-  CollectibleType.COLLECTIBLE_MOMS_HEELS,
-  CollectibleType.COLLECTIBLE_DEAD_BIRD,
-  CollectibleType.COLLECTIBLE_GUPPYS_TAIL,
-  CollectibleType.COLLECTIBLE_PAGEANT_BOY,
-  CollectibleType.COLLECTIBLE_INFESTATION,
-  CollectibleType.COLLECTIBLE_BUM_FRIEND,
-  CollectibleType.COLLECTIBLE_BLACK_BEAN,
-  CollectibleType.COLLECTIBLE_ABEL,
-  CollectibleType.COLLECTIBLE_SHARP_PLUG,
-  CollectibleType.COLLECTIBLE_TINY_PLANET,
-  CollectibleType.COLLECTIBLE_E_COLI,
-  CollectibleType.COLLECTIBLE_LITTLE_BAGGY,
-  CollectibleType.COLLECTIBLE_MISSING_NO,
-  CollectibleType.COLLECTIBLE_BBF,
-  CollectibleType.COLLECTIBLE_BOBS_BRAIN,
-  CollectibleType.COLLECTIBLE_ISAACS_HEART,
-  CollectibleType.COLLECTIBLE_TAURUS,
-  CollectibleType.COLLECTIBLE_CURSED_EYE,
-  CollectibleType.COLLECTIBLE_LUDOVICO_TECHNIQUE,
-  CollectibleType.COLLECTIBLE_SOY_MILK,
-  CollectibleType.COLLECTIBLE_BROKEN_WATCH,
-  CollectibleType.COLLECTIBLE_THE_WIZ,
-  CollectibleType.COLLECTIBLE_LOST_FLY,
-  CollectibleType.COLLECTIBLE_CURSE_OF_THE_TOWER,
-  CollectibleType.COLLECTIBLE_RESTOCK,
-  CollectibleType.COLLECTIBLE_LIL_GURDY,
-  CollectibleType.COLLECTIBLE_KEY_BUM,
-  CollectibleType.COLLECTIBLE_BETRAYAL,
-  CollectibleType.COLLECTIBLE_MARKED,
-  CollectibleType.COLLECTIBLE_GODS_FLESH,
-  CollectibleType.COLLECTIBLE_MY_SHADOW,
-  CollectibleType.COLLECTIBLE_LINGER_BEAN,
-  CollectibleType.COLLECTIBLE_SHARD_OF_GLASS,
-  CollectibleType.COLLECTIBLE_VARICOSE_VEINS,
-  CollectibleType.COLLECTIBLE_GLAUCOMA,
-  CollectibleType.COLLECTIBLE_SHADE,
-  CollectibleType.COLLECTIBLE_HUSHY,
-  CollectibleType.COLLECTIBLE_CAMO_UNDIES,
-  CollectibleType.COLLECTIBLE_BACKSTABBER,
-  CollectibleType.COLLECTIBLE_MOMS_RAZOR,
-  CollectibleType.COLLECTIBLE_LEPROSY,
-  CollectibleType.COLLECTIBLE_POP,
-  CollectibleType.COLLECTIBLE_SCHOOLBAG,
-  CollectibleType.COLLECTIBLE_MYSTERY_EGG,
-  CollectibleType.COLLECTIBLE_ALMOND_MILK,
-  CollectibleType.COLLECTIBLE_VOODOO_HEAD,
-  CollectibleType.COLLECTIBLE_BIRD_CAGE,
-  CollectibleType.COLLECTIBLE_LIL_DUMPY,
-  CollectibleType.COLLECTIBLE_4_5_VOLT,
-  CollectibleType.COLLECTIBLE_POUND_OF_FLESH,
-  CollectibleType.COLLECTIBLE_CRACKED_ORB,
-  CollectibleType.COLLECTIBLE_EMPTY_HEART,
-  CollectibleType.COLLECTIBLE_LIL_PORTAL,
-  CollectibleType.COLLECTIBLE_VANISHING_TWIN,
-  CollectibleType.COLLECTIBLE_IBS,
+  CollectibleType.MOMS_HEELS,
+  CollectibleType.DEAD_BIRD,
+  CollectibleType.GUPPYS_TAIL,
+  CollectibleType.PAGEANT_BOY,
+  CollectibleType.INFESTATION,
+  CollectibleType.BUM_FRIEND,
+  CollectibleType.BLACK_BEAN,
+  CollectibleType.ABEL,
+  CollectibleType.SHARP_PLUG,
+  CollectibleType.TINY_PLANET,
+  CollectibleType.E_COLI,
+  CollectibleType.LITTLE_BAGGY,
+  CollectibleType.MISSING_NO,
+  CollectibleType.BBF,
+  CollectibleType.BOBS_BRAIN,
+  CollectibleType.ISAACS_HEART,
+  CollectibleType.TAURUS,
+  CollectibleType.CURSED_EYE,
+  CollectibleType.LUDOVICO_TECHNIQUE,
+  CollectibleType.SOY_MILK,
+  CollectibleType.BROKEN_WATCH,
+  CollectibleType.THE_WIZ,
+  CollectibleType.CURSE_OF_THE_TOWER,
+  CollectibleType.RESTOCK,
+  CollectibleType.LIL_GURDY,
+  CollectibleType.KEY_BUM,
+  CollectibleType.BETRAYAL,
+  CollectibleType.MARKED,
+  CollectibleType.GODS_FLESH,
+  CollectibleType.MY_SHADOW,
+  CollectibleType.LINGER_BEAN,
+  CollectibleType.SHARD_OF_GLASS,
+  CollectibleType.VARICOSE_VEINS,
+  CollectibleType.GLAUCOMA,
+  CollectibleType.SHADE,
+  CollectibleType.HUSHY,
+  CollectibleType.CAMO_UNDIES,
+  CollectibleType.LEPROSY,
+  CollectibleType.POP,
+  CollectibleType.SCHOOLBAG,
+  CollectibleType.MYSTERY_EGG,
+  CollectibleType.ALMOND_MILK,
+  CollectibleType.VOODOO_HEAD,
+  CollectibleType.BIRD_CAGE,
+  CollectibleType.FOUR_FIVE_VOLT,
+  CollectibleType.POUND_OF_FLESH,
+  CollectibleType.CRACKED_ORB,
+  CollectibleType.EMPTY_HEART,
+  CollectibleType.LIL_PORTAL,
+  CollectibleType.VANISHING_TWIN,
+  CollectibleType.IBS,
 ];
 const MEHDEN_ACTIVE_STARTING_ITEMS: CollectibleType[] = [
-  CollectibleType.COLLECTIBLE_POOP,
-  CollectibleType.COLLECTIBLE_MOMS_BRA,
-  CollectibleType.COLLECTIBLE_KAMIKAZE,
-  CollectibleType.COLLECTIBLE_MOMS_PAD,
-  CollectibleType.COLLECTIBLE_LEMON_MISHAP,
-  CollectibleType.COLLECTIBLE_BEAN,
-  CollectibleType.COLLECTIBLE_RAZOR_BLADE,
-  CollectibleType.COLLECTIBLE_IV_BAG,
-  CollectibleType.COLLECTIBLE_PORTABLE_SLOT,
-  CollectibleType.COLLECTIBLE_FLUSH,
-  CollectibleType.COLLECTIBLE_BUTTER_BEAN,
-  CollectibleType.COLLECTIBLE_MAGIC_FINGERS,
-  CollectibleType.COLLECTIBLE_CONVERTER,
-  CollectibleType.COLLECTIBLE_SCISSORS,
-  CollectibleType.COLLECTIBLE_BREATH_OF_LIFE,
-  CollectibleType.COLLECTIBLE_WOODEN_NICKEL,
-  CollectibleType.COLLECTIBLE_D12,
-  CollectibleType.COLLECTIBLE_KIDNEY_BEAN,
-  CollectibleType.COLLECTIBLE_D7,
-  CollectibleType.COLLECTIBLE_BROKEN_GLASS_CANNON,
-  CollectibleType.COLLECTIBLE_PLAN_C,
-  CollectibleType.COLLECTIBLE_PAUSE,
-  CollectibleType.COLLECTIBLE_DATAMINER,
-  CollectibleType.COLLECTIBLE_DULL_RAZOR,
-  CollectibleType.COLLECTIBLE_POTATO_PEELER,
-  CollectibleType.COLLECTIBLE_BROWN_NUGGET,
-  CollectibleType.COLLECTIBLE_DELIRIOUS,
-  CollectibleType.COLLECTIBLE_MOVING_BOX,
-  CollectibleType.COLLECTIBLE_SACRIFICIAL_ALTAR,
-  CollectibleType.COLLECTIBLE_DAMOCLES,
-  CollectibleType.COLLECTIBLE_MEAT_CLEAVER,
-  CollectibleType.COLLECTIBLE_SPIN_TO_WIN,
+  CollectibleType.POOP,
+  CollectibleType.MOMS_BRA,
+  CollectibleType.KAMIKAZE,
+  CollectibleType.MOMS_PAD,
+  CollectibleType.LEMON_MISHAP,
+  CollectibleType.BEAN,
+  CollectibleType.RAZOR_BLADE,
+  CollectibleType.IV_BAG,
+  CollectibleType.PORTABLE_SLOT,
+  CollectibleType.FLUSH,
+  CollectibleType.BUTTER_BEAN,
+  CollectibleType.MAGIC_FINGERS,
+  CollectibleType.CONVERTER,
+  CollectibleType.SCISSORS,
+  CollectibleType.BREATH_OF_LIFE,
+  CollectibleType.WOODEN_NICKEL,
+  CollectibleType.D12,
+  CollectibleType.KIDNEY_BEAN,
+  CollectibleType.D7,
+  CollectibleType.BROKEN_GLASS_CANNON,
+  CollectibleType.PLAN_C,
+  CollectibleType.PAUSE,
+  CollectibleType.DATAMINER,
+  CollectibleType.DULL_RAZOR,
+  CollectibleType.POTATO_PEELER,
+  CollectibleType.BROWN_NUGGET,
+  CollectibleType.DELIRIOUS,
+  CollectibleType.MOVING_BOX,
+  CollectibleType.SACRIFICIAL_ALTAR,
+  CollectibleType.DAMOCLES,
+  CollectibleType.MEAT_CLEAVER,
+  CollectibleType.SPIN_TO_WIN,
 ];
 
 const MEHDEN_DAMAGE = -1;
-const MEHDEN_FIREDELAY = +6;
+const MEHDEN_FIRE_DELAY = +6;
 const MEHDEN_SHOT_SPEED = -0.25;
 const MEHDEN_RANGE = -60;
 const MEHDEN_SPEED = -0.15;
@@ -110,9 +111,9 @@ export function main(): void {
   const mod = RegisterMod(MOD_NAME, 1);
 
   // Set a callback function that corresponds to when a new run is started
-  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted);
+  mod.AddCallback(ModCallback.POST_GAME_STARTED, postGameStarted);
 
-  mod.AddCallback(ModCallbacks.MC_EVALUATE_CACHE, evaluateCache);
+  mod.AddCallback(ModCallback.EVALUATE_CACHE, evaluateCache);
 
   // Print an initialization message to the "log.txt" file
   Isaac.DebugString(`${MOD_NAME} initialized.`);
@@ -129,34 +130,34 @@ function postGameStarted() {
     );
     Isaac.GetPlayer().AddCollectible(
       activeItem,
-      getCollectibleInitCharges(activeItem),
+      getCollectibleInitCharge(activeItem),
     );
   }
 }
 
 function evaluateCache(player: EntityPlayer, cacheFlag: CacheFlag) {
   if (Isaac.GetPlayer().GetName() === "Mehden") {
-    if (cacheFlag === CacheFlag.CACHE_DAMAGE) {
+    if (cacheFlag === CacheFlag.DAMAGE) {
       player.Damage += MEHDEN_DAMAGE;
     }
-    if (cacheFlag === CacheFlag.CACHE_FIREDELAY) {
-      player.MaxFireDelay += MEHDEN_FIREDELAY;
+    if (cacheFlag === CacheFlag.FIRE_DELAY) {
+      player.MaxFireDelay += MEHDEN_FIRE_DELAY;
     }
-    if (cacheFlag === CacheFlag.CACHE_SHOTSPEED) {
+    if (cacheFlag === CacheFlag.SHOT_SPEED) {
       player.ShotSpeed += MEHDEN_SHOT_SPEED;
     }
-    if (cacheFlag === CacheFlag.CACHE_RANGE) {
+    if (cacheFlag === CacheFlag.RANGE) {
       player.TearRange += MEHDEN_RANGE;
     }
-    if (cacheFlag === CacheFlag.CACHE_SPEED) {
+    if (cacheFlag === CacheFlag.SPEED) {
       player.MoveSpeed += MEHDEN_SPEED;
     }
-    if (cacheFlag === CacheFlag.CACHE_LUCK) {
+    if (cacheFlag === CacheFlag.LUCK) {
       player.Luck += MEHDEN_LUCK;
     }
   }
 }
 
-function getMehdenStartingItem(pool: CollectibleType[], seed: int) {
+function getMehdenStartingItem(pool: CollectibleType[], seed: Seed) {
   return getRandomArrayElement(pool, seed);
 }
